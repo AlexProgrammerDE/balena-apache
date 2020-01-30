@@ -1,0 +1,28 @@
+version: '2'
+services:
+  apache:
+    network_mode: host
+    restart: always
+    build: ./apache
+    privileged: true
+    ports:
+      - "80:80/udp"
+      - "80:80/tcp"
+    labels:
+      io.balena.features.dbus: '1'
+    volumes:
+      - apachefiles:/var/www
+  scp-server:
+    network_mode: host
+    restart: always
+    build: ./scp-server
+    privileged: false
+    labels:
+      io.balena.features.dbus: 1
+    volumes:
+      - apachefiles:/apachefiles
+    ports:
+      - "22:22/udp"
+      - "22:22/tcp"
+volumes:
+  apachefiles:
