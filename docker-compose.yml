@@ -12,6 +12,7 @@ services:
       io.balena.features.dbus: '1'
     volumes:
       - apachefiles:/var/www
+      - apacheconf:/etc/apache2
   scp-server:
     network_mode: host
     restart: always
@@ -21,8 +22,10 @@ services:
       io.balena.features.dbus: 1
     volumes:
       - apachefiles:/apachefiles
+      - apacheconfig:/apacheconfig
     ports:
       - "22:22/udp"
       - "22:22/tcp"
 volumes:
   apachefiles:
+  apacheconfig:
